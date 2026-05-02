@@ -25,7 +25,7 @@ st.set_page_config(
 # GLOBAL CSS — Calm Forest · Organic Minimal
 # Font: Fraunces (display) + Plus Jakarta Sans (body)
 # ════════════════════════════════════════════════════════════
-st.markdown("""
+st.markdown(
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 
@@ -347,7 +347,7 @@ html, body, [class*="css"] {
   50%      { opacity:0.6; transform:scale(1.35); }
 }
 </style>
-""", unsafe_allow_html=True)
+, unsafe_allow_html=True)
 
 # ════════════════════════════════════════════════════════════
 # CONSTANTS
@@ -436,7 +436,7 @@ def init_rag():
     )
 
     qa_prompt = PromptTemplate(
-        template="""
+        template=
 Kamu adalah Nara, teman virtual yang hangat dan empatik dari MindEase.
 Berbicara santai dalam Bahasa Indonesia, seperti teman sebaya yang peduli.
 
@@ -455,7 +455,7 @@ Panduan menjawab:
 5. JANGAN mendiagnosa kondisi mental
 6. Jika krisis, sertakan hotline: 119 ext 8
 
-Jawaban Nara:""",
+Jawaban Nara:,
         input_variables=["context", "question"]
     )
 
@@ -524,7 +524,7 @@ def generate_response(prompt: str) -> str:
 with st.sidebar:
 
     # Header
-    st.markdown("""
+    st.markdown(
     <div class='sidebar-header'>
       <div style='display:flex; align-items:center; gap:12px; position:relative;'>
         <div style='width:42px; height:42px; background:rgba(255,255,255,0.15);
@@ -541,7 +541,7 @@ with st.sidebar:
         </div>
       </div>
     </div>
-    """, unsafe_allow_html=True)
+    , unsafe_allow_html=True)
 
     # Mood Tracker
     st.markdown("<div class='sidebar-section'>", unsafe_allow_html=True)
@@ -586,7 +586,7 @@ with st.sidebar:
         # Stat cards
         today_mood = st.session_state.mood_history.get(str(date.today()), {})
         today_emoji = today_mood.get("emoji", "—")
-        st.markdown(f"""
+        st.markdown(f
         <div class='stat-row'>
           <div class='stat-card'>
             <div class='stat-val'>{avg:.1f}</div>
@@ -601,7 +601,7 @@ with st.sidebar:
             <div class='stat-lbl'>hari ini</div>
           </div>
         </div>
-        """, unsafe_allow_html=True)
+        , unsafe_allow_html=True)
 
         # Mini chart
         fig, ax = plt.subplots(figsize=(3.8, 2.2))
@@ -635,7 +635,7 @@ with st.sidebar:
         st.markdown("</div>", unsafe_allow_html=True)
 
     # Disclaimer
-    st.markdown("""
+    st.markdown(
     <div style='padding:16px 20px;'>
       <div class='disclaimer-box'>
         ⚠️ <strong>MindEase</strong> adalah alat bantu edukasi, bukan pengganti
@@ -643,7 +643,7 @@ with st.sidebar:
         Darurat: <strong>119 ext 8</strong>
       </div>
     </div>
-    """, unsafe_allow_html=True)
+    , unsafe_allow_html=True)
 
     # Reset chat
     st.markdown("<div style='padding:0 20px 20px;'>", unsafe_allow_html=True)
@@ -661,7 +661,7 @@ with st.sidebar:
 # ════════════════════════════════════════════════════════════
 
 # Header bar
-st.markdown("""
+st.markdown(
 <div class='main-header'>
   <div style='display:flex; align-items:center; gap:16px; position:relative;'>
     <div style='width:50px; height:50px; background:rgba(255,255,255,0.15);
@@ -690,7 +690,7 @@ st.markdown("""
     </div>
   </div>
 </div>
-""", unsafe_allow_html=True)
+, unsafe_allow_html=True)
 
 # Chat container
 chat_container = st.container()
@@ -702,7 +702,7 @@ with chat_container:
             f"<div class='starter-chip'>{s}</div>"
             for s in STARTER_PROMPTS
         ])
-        st.markdown(f"""
+        st.markdown(f
         <div class='welcome-card'>
           <span class='welcome-icon'>🌿</span>
           <div class='welcome-title'>Halo, aku Nara!</div>
@@ -717,7 +717,7 @@ with chat_container:
           </div>
           <div class='starter-grid'>{chips_html}</div>
         </div>
-        """, unsafe_allow_html=True)
+        , unsafe_allow_html=True)
     else:
         # Tampilkan riwayat chat
         for msg in st.session_state.messages:

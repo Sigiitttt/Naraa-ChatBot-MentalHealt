@@ -57,7 +57,7 @@ def init_rag():
     retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 3})
 
     llm = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash",  # Tetap pakai 1.5-flash agar tidak kena error Quota Limit 0
+        model="gemini-2.5-flash",  # Tetap pakai 1.5-flash agar tidak kena error Quota Limit 0
         temperature=0.7,
         max_output_tokens=1024,
         convert_system_message_to_human=True

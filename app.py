@@ -51,16 +51,28 @@ os.environ["GOOGLE_API_KEY"] = api_key
 
 # ---- Inisialisasi RAG (cached agar tidak reload tiap interaksi) ----
 @st.cache_resource
+# ---- Inisialisasi RAG (cached agar tidak reload tiap interaksi) ----
+@st.cache_resource
 def init_rag():
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    # 1. Panggil API Key secara eksplisit dari sistem
+    current_api_key = os.environ.get("GOOGLE_API_KEY")
+
+    # 2. Masukkan API Key ke dalam sistem Embedding
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/embedding-001",
+        google_api_key=current_api_key
+    )
+    
     vectorstore = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
     retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 3})
 
+    # 3. Perbaiki nama model dan masukkan API Key ke LLM
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",  # Tetap pakai 1.5-flash agar tidak kena error Quota Limit 0
+        model="gemini-2.5-flash", 
         temperature=0.7,
         max_output_tokens=1024,
-        convert_system_message_to_human=True
+        convert_system_message_to_human=True,
+        google_api_key=current_api_key
     )
 
     QA_PROMPT = PromptTemplate(

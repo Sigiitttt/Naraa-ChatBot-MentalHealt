@@ -179,15 +179,12 @@ if prompt := st.chat_input("Ceritakan apa yang kamu rasakan..."):
     with st.chat_message("assistant", avatar="🧠"):
         with st.spinner("Minda sedang berpikir..."):
             if any(kw in prompt.lower() for kw in CRISIS_KEYWORDS):
-                response = ("Hey, aku sangat khawatir mendengar itu. 💙
+                response = """Hey, aku sangat khawatir mendengar itu. 💙
 
-"
-                           "Kamu tidak sendirian. Tolong hubungi:
-"
-                           "📞 **Hotline Kemenkes: 119 ext 8** (24 jam, gratis)
+Kamu tidak sendirian. Tolong hubungi:
+📞 **Hotline Kemenkes: 119 ext 8** (24 jam, gratis)
 
-"
-                           "Aku di sini bersamamu.")
+Aku di sini bersamamu."""
             else:
                 # Tambah konteks mood
                 today = str(date.today())

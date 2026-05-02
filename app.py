@@ -4,7 +4,7 @@ from datetime import date, datetime
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts import PromptTemplate
@@ -59,9 +59,8 @@ def init_rag():
 
     # 2. Masukkan API Key ke dalam sistem Embedding
     embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/embedding-001",
-        google_api_key=current_api_key
-    )
+    model="models/gemini-embedding-001"
+)
     
     vectorstore = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
     retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 3})

@@ -1,4 +1,3 @@
-
 import streamlit as st
 import os
 from datetime import date, datetime
@@ -58,7 +57,7 @@ def init_rag():
     retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 3})
 
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash-lite",
+        model="gemini-1.5-flash",  # Tetap pakai 1.5-flash agar tidak kena error Quota Limit 0
         temperature=0.7,
         max_output_tokens=1024,
         convert_system_message_to_human=True
@@ -191,7 +190,8 @@ Aku di sini bersamamu."""
                 mood_ctx = ""
                 if today in st.session_state.mood_history:
                     m = st.session_state.mood_history[today]
-                    mood_ctx = f"[Mood hari ini: {m["emoji"]} {m["label"]}] "
+                    # PERBAIKAN: Gunakan tanda kutip tunggal di dalam f-string
+                    mood_ctx = f"[Mood hari ini: {m['emoji']} {m['label']}] "
 
                 chain = ConversationalRetrievalChain.from_llm(
                     llm=llm,
